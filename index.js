@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
-const axios = require('axios')
+const cors = require('cors')
+const middleware = require('./middleware')
 
+const axios = require('axios')
 require('dotenv').config()
 const { PORT } = process.env
 const appVersion = require('./package.json').version
@@ -16,12 +18,12 @@ const getUsers = (userId = null) => new Promise((resolve, reject) => {
     .catch(e => reject(e))
 })
 
-const middleware = (req, res, next) => {
-    console.log('Middleware')
-    next()
-}
+app.use(cors())
+app.use(express.json())
 
-app.use(middleware)
+app.use(middleware.auth)
+app.use(middleware.logger)
+app.use(middleware.errorHandler)
 
 app.get('/users', async (req, res) => {
     let data = await getUsers()
