@@ -16,6 +16,13 @@ const getUsers = (userId = null) => new Promise((resolve, reject) => {
     .catch(e => reject(e))
 })
 
+const middleware = (req, res, next) => {
+    console.log('Middleware')
+    next()
+}
+
+app.use(middleware)
+
 app.get('/users', async (req, res) => {
     let data = await getUsers()
     res.status(200).send(data)
