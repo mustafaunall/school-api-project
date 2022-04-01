@@ -2,10 +2,11 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const middleware = require('./middleware')
+const { MongoClient } = require('mongodb')
 
 const axios = require('axios')
 require('dotenv').config()
-const { PORT } = process.env
+const { PORT, MONGO_URI } = process.env
 const appVersion = require('./package.json').version
 
 const getUsers = (userId = null) => new Promise((resolve, reject) => {

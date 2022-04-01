@@ -1,0 +1,96 @@
+use('school')
+
+db.createCollection('test')
+
+db.test.insertOne({
+        name: 'Mustafa',
+        job: 'Software Team Lead'
+})
+
+db.test.insertMany([
+    { name: 'Ahmet Nail', age: 23 },
+    { name: 'Mehmetali', age: 22 }
+])
+
+db.test.find()
+
+db.test.find({ age: 23 })
+
+db.test.find({ name: 'Ahmet Nail', age: 23 })
+
+db.test.find({
+    $or: [
+        { name: 'Ahmet Nail' },
+        { age: 22 }
+    ]
+})
+
+db.test.find({
+    age: {
+        $lt: 35 // less than
+    }
+})
+
+db.test.find({
+    age: {
+        $gt: 15 // greater than
+    }
+})
+
+db.test.find({
+    age: {
+        $lte: 35 // less than equals
+    }
+})
+
+db.test.find({
+    age: {
+        $gte: 15 // greater than equals
+    }
+})
+
+db.test.find({
+    age: {
+        $ne: 15 // not equals
+    }
+})
+
+db.test.find().sort({ age: 1 }) // sort ascending
+
+db.test.find().sort({ age: -1 }) // sort descending
+
+db.test.find({
+    age: { $ne: null }
+}).sort({ age: 1 }) // sort ascending and age != null
+
+db.test.find().limit(1) // gets only first matching
+
+db.test.findOne() // gets only first maching ( alternative )
+
+db.test.updateOne(
+    { name: 'Mehmetali' },
+    {
+        $set: {
+            name: 'Mehmetali',
+            age: 25
+        }
+    }
+)
+
+db.test.updateMany(
+    {},
+    {
+        $set: {
+            age: 23
+        }
+    }
+) // updates age to 23 on every document
+
+db.test.updateMany(
+    {},
+    {
+        $rename: {
+            name: 'fullName'
+        }
+    }
+) // renames name key to fullName on every document
