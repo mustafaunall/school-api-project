@@ -8,6 +8,7 @@ const axios = require('axios')
 require('dotenv').config()
 const { PORT, MONGO_URI } = process.env
 const appVersion = require('./package.json').version
+const dbClient = new MongoClient(MONGO_URI)
 
 const getUsers = (userId = null) => new Promise((resolve, reject) => {
     let url = `https://jsonplaceholder.typicode.com/users`
